@@ -28,12 +28,9 @@ function byteToHex(byte) {
 
 function byteArrayToHex (bytes) {
   return bytes.map(byte => {
-    let hex = parseInt(byte, 2).toString(16);
-    if (hex.length < 2) {
-      hex = `0${hex}`;
-    }
-    return hex;
-  }).join('').toUpperCase();
+    const hex = byteToHex(byte);
+    return (hex.length < 2) ? `0${hex}` : hex;
+  }).join('');
 }
 
 function base58FromHex(hex) {

@@ -14,32 +14,42 @@ function generate20Bytes () {
   return byteArray;
 }
 
-function hexStringToBinary (string) {
-  return string.split('')
-    .map(hex => parseInt(hex, 16).toString(2).padStart(4, '0'));
+function hexByteToBinary(string) {
+  return parseInt(string, 16).toString(2).padStart(8, '0');
 }
 
-const addressArray = generate20Bytes();
-const binaryAddress = addressArray.join('');
-const hex = addressArray.map(byte => parseInt(byte, 2).toString(16)).join('');
-console.log('= hex ==============================================');
-console.log(hex);
+function hexToBinary(string) {
+  return string.match(/.{2}/g).map(hexByteToBinary).join('');
+}
 
-// then lets convert it to base 58
-const base58 = bs58.encode(Buffer.from(hex));
-console.log('= base 58 ==============================================');
-console.log(base58);
+function byteToHex(byte) {
+  return parseInt(byte, 2).toString(16).toUpperCase();
+}
 
-// lets see if we can reverse the process
-const destructuredHex = bs58.decode(base58).toString();
-console.log('= hex should be the same ==============================================');
-console.log(hex === destructuredHex);
+function byteArrayToHex (bytes) {
+  return bytes.map(byte => {
+    let hex = parseInt(byte, 2).toString(16);
+    if (hex.length < 2) {
+      hex = `0${hex}`;
+    }
+    return hex;
+  }).join('').toUpperCase();
+}
 
-// lets convert back to a binary string
-const destructuredAddress = hexStringToBinary(destructuredHex).join('');
-console.log('= destructured address ==============================================');
-console.log(destructuredAddress);
-console.log('= binaryAddress address ==============================================');
-console.log(binaryAddress);
+function base58FromHex(hex) {
+  return bs58.encode(Buffer.from(hex, 'hex'));
+}
 
-console.log(destructuredAddress === binaryAddress);
+function hexFromBase58(base58) {
+  return bs58.decode(base58).toString('hex').toUpperCase();
+}
+
+module.exports = {
+  generate20Bytes,
+  hexByteToBinary,
+  hexToBinary,
+  byteToHex,
+  byteArrayToHex,
+  base58FromHex,
+  hexFromBase58,
+};

@@ -1,0 +1,25 @@
+{
+  "name": "binary-hex-playground",
+  "version": "1.0.0",
+  "description": "Testing some crypto stuff",
+  "main": "index.js",
+  "dependencies": {
+    "bs58": "4.0.1"
+  },
+  "devDependencies": {
+    "jest": "22.4.3"
+  },
+  "scripts": {
+    "test": "jest --coverage --forceExit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roppa/binary-hex-playground.git"
+  },
+  "author": "Mark Robson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roppa/binary-hex-playground/issues"
+  },
+  "homepage": "https://github.com/roppa/binary-hex-playground#readme"
+}
